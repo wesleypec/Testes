@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #block {
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+      position: absolute;
+    }
+
+    #staticBlock {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+    }
+  </style>
+  <title>Gameficação em JavaScript</title>
+</head>
+<body>
+
+<div id="block"></div>
+<div id="staticBlock"></div>
+
+<script>
+  const block = document.getElementById('block');
+  const staticBlock = document.getElementById('staticBlock');
+
+  let positionX = 0;
+  let positionY = 0;
+
+  function moveBlock(direction) {
+    switch (direction) {
+      case 'ArrowUp':
+        positionY -= 10;
+        break;
+      case 'ArrowDown':
+        positionY += 10;
+        break;
+      case 'ArrowLeft':
+        positionX -= 10;
+        break;
+      case 'ArrowRight':
+        positionX += 10;
+        break;
+    }
+
+    block.style.left = `${positionX}px`;
+    block.style.top = `${positionY}px`;
+
+    checkCollision();
+  }
+
+  function checkCollision() {
+    const rect1 = block.getBoundingClientRect();
+    const rect2 = staticBlock.getBoundingClientRect();
+    //rect1.left < rect2.left + rect2.width: 
+    //Verifica se o lado esquerdo do retângulo rect1 está 
+    //à esquerda do lado direito do retângulo rect2.
+    
+
+//rect1.left + rect1.width > rect2.left: 
+//Verifica se o lado direito do retângulo rect1 está à 
+//direita do lado esquerdo do retângulo rect2.
+
+//rect1.top < rect2.top + rect2.height: 
+//Verifica se o lado superior do retângulo rect1 está 
+//acima do lado inferior do retângulo rect2.
+
+//rect1.top + rect1.height > rect2.top: 
+//Verifica se o lado inferior do retângulo rect1 está 
+//abaixo do lado superior do retângulo rect2.
+    if (
+      rect1.left < rect2.left + rect2.width &&
+      rect1.left + rect1.width > rect2.left &&
+      rect1.top < rect2.top + rect2.height &&
+      rect1.top + rect1.height > rect2.top
+    ) {
+      // Bloco móvel colidiu com o bloco estático
+      block.style.backgroundColor = 'green';
+    } else {
+      // Não houve colisão, restaurar a cor original
+      block.style.backgroundColor = 'blue';
+    }
+  }
+
+  document.addEventListener('keydown', function(event) {
+    moveBlock(event.key);
+  });
+</script>
+
+</body>
+</html>
