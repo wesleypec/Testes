@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #block {
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+      position: absolute;
+    }
+  </style>
+  <title>Gameficação em JavaScript</title>
+</head>
+<body>
+
+<div id="block"></div>
+
+<script>
+  const block = document.getElementById('block');
+
+  let positionX = 0;
+  let positionY = 0;
+
+  function moveBlock(direction) {
+    switch (direction) {
+      case 'ArrowUp':
+        positionY -= 10;
+        break;
+      case 'ArrowDown':
+        positionY += 10;
+        break;
+      case 'ArrowLeft':
+        positionX -= 10;
+        break;
+      case 'ArrowRight':
+        positionX += 10;
+        break;
+    }
+
+    block.style.left = `${positionX}px`;
+    block.style.top = `${positionY}px`;
+  }
+
+  document.addEventListener('keydown', function(event) {
+    moveBlock(event.key);
+  });
+</script>
+
+</body>
+</html>
+
+
